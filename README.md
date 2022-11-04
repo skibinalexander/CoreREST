@@ -1,3 +1,3 @@
 # CoreREST
 
-A description of this package.
+Base REST adapter implementation use Alamofire & SwiftyJSON

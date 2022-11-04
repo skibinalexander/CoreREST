@@ -1,0 +1,6 @@
+framework module RESTAdapter {
+  umbrella header "RESTAdapter-umbrella.h"
+
+  export *
+  module * { export * }
+}
