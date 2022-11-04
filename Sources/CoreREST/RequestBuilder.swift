@@ -38,7 +38,7 @@ public final class RequestBuilder {
     
     // MARK: - Properties
     
-    public var url: URLConvertible
+    public var urlPath: String
     public var headers: HTTPHeaders?
     public var parameters: Parameters?
     public var encoding: ParameterEncoding
@@ -46,12 +46,12 @@ public final class RequestBuilder {
     // MARK: - Init
     
     public init(
-        url: String,
+        urlPath: String,
         headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding
     ) {
-        self.url = try! url.asURL()
+        self.urlPath = urlPath
         self.headers = headers
         self.parameters = parameters
         self.encoding = encoding
@@ -61,7 +61,7 @@ public final class RequestBuilder {
     
     public func get() -> Request {
         Request(
-            url: try! url.asURL(),
+            url: try! urlPath.asURL(),
             method: .get,
             headers: headers,
             parameters: parameters,
@@ -71,7 +71,7 @@ public final class RequestBuilder {
     
     public func post() -> Request {
         Request(
-            url: try! url.asURL(),
+            url: try! urlPath.asURL(),
             method: .post,
             headers: headers,
             parameters: parameters,
@@ -81,7 +81,7 @@ public final class RequestBuilder {
     
     public func put() -> Request {
         Request(
-            url: try! url.asURL(),
+            url: try! urlPath.asURL(),
             method: .put,
             headers: headers,
             parameters: parameters,
@@ -91,7 +91,7 @@ public final class RequestBuilder {
     
     public func patch() -> Request {
         Request(
-            url: try! url.asURL(),
+            url: try! urlPath.asURL(),
             method: .patch,
             headers: headers,
             parameters: parameters,
@@ -101,7 +101,7 @@ public final class RequestBuilder {
     
     public func delete() -> Request {
         Request(
-            url: try! url.asURL(),
+            url: try! urlPath.asURL(),
             method: .delete,
             headers: headers,
             parameters: parameters,

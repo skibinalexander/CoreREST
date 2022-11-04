@@ -1,10 +1,8 @@
 Pod::Spec.new do |s|
   s.name             = 'CoreREST'
-  s.version          = '0.2.3'
+  s.version          = '0.0.2'
   s.summary          = 'Network adapter for Alamofire library implementation with SwiftyJSON parser'
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.description      = 'Usefull network adapter Alamofire library implementation with SwiftyJSON parser'
 
   s.homepage         = 'https://github.com/skibinalexander/CoreREST.git'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
