@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CoreREST",
-    platforms: [.iOS(.v12), .macOS(.v10_12)],
+    platforms: [.iOS(.v12)],
     products: [
         .library(
             name: "CoreREST",

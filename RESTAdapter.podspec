@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.author           = { 'Skibin Alexander' => 'skibinalexander@gmail.com' }
   s.source           = { :git => 'https://github.com/skibinalexander/CoreREST.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
-  s.swift_version = "5.0"
+  s.ios.deployment_target = '12.0'
+  s.swift_version = "5.5"
   s.source_files = 'Sources/CoreREST/**/*'
   s.dependency 'Alamofire', '~> 5.0'
   s.dependency 'SwiftyJSON', '~> 4.0'
