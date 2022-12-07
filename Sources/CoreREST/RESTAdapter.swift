@@ -68,7 +68,7 @@ public final class RESTAdapter {
                 interceptor: interceptor
             )
             .validate(validator)
-            .responseJSON { responseData in
+            .responseData { responseData in
                 status?(responseData.response?.statusCode)
                 
                 switch responseData.result {
@@ -157,7 +157,7 @@ public final class RESTAdapter {
             )
             .validate(validator)
             .uploadProgress(closure: progress)
-            .responseJSON { responseData in
+            .responseData { responseData in
                 status?(responseData.response?.statusCode)
                 
                 switch responseData.result {
