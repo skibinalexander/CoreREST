@@ -9,7 +9,7 @@
 import SwiftyJSON
 
 /// Базовый интерфейс отвеса сервера
-public protocol ResponseModel {
+public protocol ResponseModel: Decodable {
     
     /// Инициализатор
     /// - Parameter json: Data JSON object
