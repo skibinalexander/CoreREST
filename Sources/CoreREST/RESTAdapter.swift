@@ -15,6 +15,9 @@ import SwiftyJSON
 
 public typealias Validate = (_ request: URLRequest?, _ response: HTTPURLResponse, _ data: Data?) -> Result<Void, Error>
 public typealias Status = ((Int?) -> Void)?
+public typealias CompletionVoid = ((Result<Void, AFError>) -> Void)?
+public typealias CompletionOptionalData = ((Result<Data?, AFError>) -> Void)?
+public typealias CompletionData = ((Result<Data, AFError>) -> Void)?
 
 public final class RESTAdapter {
     
@@ -51,13 +54,13 @@ public final class RESTAdapter {
     /// - Parameter success: Получение успешного выполнения запроса после выполнения валидаций
     /// - Parameter failure: Получение запроса с ошибкой после выполнения валидаций
     /// - Parameter result: Completion result работы запроса
-    public func executeJSON<Request, Response>(
+    public func executeData<Request>(
         request: Request,
         interceptor: RequestInterceptor? = nil,
         validator: @escaping Validate,
         status: Status = nil,
-        result: ((Result<Response, Error>) -> Void)? = nil
-    ) where Request: RequestModel, Response: ResponseModel {
+        completion: CompletionData = nil
+    ) where Request: RequestModel {
         session
             .request(
                 request.url,
@@ -70,22 +73,16 @@ public final class RESTAdapter {
             .validate(validator)
             .responseData { responseData in
                 status?(responseData.response?.statusCode)
-                
-                switch responseData.result {
-                case .success(let data):
-                    result?(.success(Response(json: JSON(data))))
-                case .failure(let error):
-                    result?(.failure(error))
-                }
+                completion?(responseData.result)
             }
     }
     
-    public func executeData<Request>(
+    public func executeOptionalData<Request>(
         request: Request,
         interceptor: RequestInterceptor? = nil,
         validator: @escaping Validate,
         status: Status = nil,
-        result: ((Result<Data?, Error>) -> Void)? = nil
+        completion: CompletionOptionalData = nil
     ) where Request: RequestModel {
         session
             .request(
@@ -99,13 +96,7 @@ public final class RESTAdapter {
             .validate(validator)
             .response { responseData in
                 status?(responseData.response?.statusCode)
-                
-                switch responseData.result {
-                case .success(let data):
-                    result?(.success(data))
-                case .failure(let error):
-                    result?(.failure(error))
-                }
+                completion?(responseData.result)
             }
     }
     
@@ -114,7 +105,7 @@ public final class RESTAdapter {
         interceptor: RequestInterceptor? = nil,
         validator: @escaping Validate,
         status: Status = nil,
-        result: ((Result<Void, Error>) -> Void)? = nil
+        completion: CompletionVoid = nil
     ) where Request: RequestModel {
         session
             .request(
@@ -128,13 +119,7 @@ public final class RESTAdapter {
             .validate(validator)
             .response { responseData in
                 status?(responseData.response?.statusCode)
-                
-                switch responseData.result {
-                case .success(_):
-                    result?(.success(()))
-                case .failure(let error):
-                    result?(.failure(error))
-                }
+                completion?(.success(()))
             }
     }
     
@@ -162,7 +147,7 @@ public final class RESTAdapter {
                 
                 switch responseData.result {
                 case .success(let data):
-                    result?(.success(Response(json: JSON(data))))
+                    result?(.success(Response.map(json: JSON(data))))
                 case .failure(let error):
                     result?(.failure(error))
                 }
